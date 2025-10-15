@@ -1,0 +1,12 @@
+{
+  "name": "skill-exchange-platform",
+  "version": "1.0.0", 
+  "description": "AI-powered skill exchange platform for M.Tech research",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "author": "Harsh Gokul Memane",
+  "keywords": ["AI", "skill-exchange", "education", "M.Tech"],
+  "license": "MIT"
+}

@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSync - AI-Powered Skill Exchange Platform</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+    <style>
+        :root {
+  /* Primitive Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  /* RGB versions for opacity control */
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  /* Background color tokens (Light Mode) */
+  --color-bg-1: rgba(59, 130, 246, 0.08); /* Light blue */
+  --color-bg-2: rgba(245, 158, 11, 0.08); /* Light yellow */
+  --color-bg-3: rgba(34, 197, 94, 0.08); /* Light green */
+  --color-bg-4: rgba(239, 68, 68, 0.08); /* Light red */
+  --color-bg-5: rgba(147, 51, 234, 0.08); /* Light purple */
+  --color-bg-6: rgba(249, 115, 22, 0.08); /* Light orange */
+  --color-bg-7: rgba(236, 72, 153, 0.08); /* Light pink */
+  --color-bg-8: rgba(6, 182, 212, 0.08); /* Light cyan */
+
+  /* Semantic Color Tokens (Light Mode) */
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+  /* Common style patterns */
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+  --status-bg-opacity: 0.15;
+  --status-border-opacity: 0.25;
+  --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+  /* RGB versions for opacity control */
+  --color-success-rgb: 33, 128, 141;
+  --color-error-rgb: 192, 21, 47;
+  --color-warning-rgb: 168, 75, 47;
+  --color-info-rgb: 98, 108, 113;
+
+  /* Typography */
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, monospace;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+
+  /* Spacing */
+  --space-0: 0;
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04),
+    0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+
+  /* Animation */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+}
+
+/* Dark mode colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* RGB versions for opacity control (Dark Mode) */
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    /* Background color tokens (Dark Mode) */
+    --color-bg-1: rgba(29, 78, 216, 0.15); /* Dark blue */
+    --color-bg-2: rgba(180, 83, 9, 0.15); /* Dark yellow */
+    --color-bg-3: rgba(21, 128, 61, 0.15); /* Dark green */
+    --color-bg-4: rgba(185, 28, 28, 0.15); /* Dark red */
+    --color-bg-5: rgba(107, 33, 168, 0.15); /* Dark purple */
+    --color-bg-6: rgba(194, 65, 12, 0.15); /* Dark orange */
+    --color-bg-7: rgba(190, 24, 93, 0.15); /* Dark pink */
+    --color-bg-8: rgba(8, 145, 178, 0.15); /* Dark cyan */
+
+    /* Semantic Color Tokens (Dark Mode) */
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+    --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    --button-border-secondary: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-border-secondary: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
+
+    /* Common style patterns - updated for dark mode */
+    --focus-ring: 0 0 0 3px var(--color-focus-ring);
+    --focus-outline: 2px solid var(--color-primary);
+    --status-bg-opacity: 0.15;
+    --status-border-opacity: 0.25;
+    --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+    /* RGB versions for dark mode */
+    --color-success-rgb: var(--color-teal-300-rgb);
+    --color-error-rgb: var(--color-red-400-rgb);
+    --color-warning-rgb: var(--color-orange-400-rgb);
+    --color-info-rgb: var(--color-gray-300-rgb);
+  }
+}
+
+/* Data attribute for manual theme switching */
+[data-color-scheme="dark"] {
+  /* RGB versions for opacity control (dark mode) */
+  --color-gray-400-rgb: 119, 124, 124;
+  --color-teal-300-rgb: 50, 184, 198;
+  --color-gray-300-rgb: 167, 169, 169;
+  --color-gray-200-rgb: 245, 245, 245;
+
+  /* Colorful background palette - Dark Mode */
+  --color-bg-1: rgba(29, 78, 216, 0.15); /* Dark blue */
+  --color-bg-2: rgba(180, 83, 9, 0.15); /* Dark yellow */
+  --color-bg-3: rgba(21, 128, 61, 0.15); /* Dark green */
+  --color-bg-4: rgba(185, 28, 28, 0.15); /* Dark red */
+  --color-bg-5: rgba(107, 33, 168, 0.15); /* Dark purple */
+  --color-bg-6: rgba(194, 65, 12, 0.15); /* Dark orange */
+  --color-bg-7: rgba(190, 24, 93, 0.15); /* Dark pink */
+  --color-bg-8: rgba(8, 145, 178, 0.15); /* Dark cyan */
+
+  /* Semantic Color Tokens (Dark Mode) */
+  --color-background: var(--color-charcoal-700);
+  --color-surface: var(--color-charcoal-800);
+  --color-text: var(--color-gray-200);
+  --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+  --color-primary: var(--color-teal-300);
+  --color-primary-hover: var(--color-teal-400);
+  --color-primary-active: var(--color-teal-800);
+  --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+  --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+  --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+  --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+  --color-error: var(--color-red-400);
+  --color-success: var(--color-teal-300);
+  --color-warning: var(--color-orange-400);
+  --color-info: var(--color-gray-300);
+  --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+  --color-btn-primary-text: var(--color-slate-900);
+  --color-card-border: rgba(var(--color-gray-400-rgb), 0.15);
+  --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+  --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  --color-border-secondary: rgba(var(--color-gray-400-rgb), 0.2);
+  --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
+
+  /* Common style patterns - updated for dark mode */
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+  --status-bg-opacity: 0.15;
+  --status-border-opacity: 0.25;
+  --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+  /* RGB versions for dark mode */
+  --color-success-rgb: var(--color-teal-300-rgb);
+  --color-error-rgb: var(--color-red-400-rgb);
+  --color-warning-rgb: var(--color-orange-400-rgb);
+  --color-info-rgb: var(--color-gray-300-rgb);
+}
+
+[data-color-scheme="light"] {
+  /* RGB versions for opacity control (light mode) */
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+
+  /* Semantic Color Tokens (Light Mode) */
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+  /* RGB versions for light mode */
+  --color-success-rgb: var(--color-teal-500-rgb);
+  --color-error-rgb: var(--color-red-500-rgb);
+  --color-warning-rgb: var(--color-orange-500-rgb);
+  --color-info-rgb: var(--color-slate-500-rgb);
+}
+
+/* Base styles */
+html {
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+}
+h2 {
+  font-size: var(--font-size-3xl);
+}
+h3 {
+  font-size: var(--font-size-2xl);
+}
+h4 {
+  font-size: var(--font-size-xl);
+}
+h5 {
+  font-size: var(--font-size-lg);
+}
+h6 {
+  font-size: var(--font-size-md);
+}
+
+p {
+  margin: 0 0 var(--space-16) 0;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+code,
+pre {
+  font-family: var(--font-family-mono);
+  font-size: calc(var(--font-size-base) * 0.95);
+  background-color: var(--color-secondary);
+  border-radius: var(--radius-sm);
+}
+
+code {
+  padding: var(--space-1) var(--space-4);
+}
+
+pre {
+  padding: var(--space-16);
+  margin: var(--space-16) 0;
+  overflow: auto;
+  border: 1px solid var(--color-border);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+  border: none;
+  text-decoration: none;
+  position: relative;
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.btn--primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.btn--primary:active {
+  background: var(--color-primary-active);
+}
+
+.btn--secondary {
+  background: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.btn--secondary:hover {
+  background: var(--color-secondary-hover);
+}
+
+.btn--secondary:active {
+  background: var(--color-secondary-active);
+}
+
+.btn--outline {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.btn--outline:hover {
+  background: var(--color-secondary);
+}
+
+.btn--sm {
+  padding: var(--space-4) var(--space-12);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-sm);
+}
+
+.btn--lg {
+  padding: var(--space-10) var(--space-20);
+  font-size: var(--font-size-lg);
+  border-radius: var(--radius-md);
+}
+
+.btn--full-width {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Form elements */
+.form-control {
+  display: block;
+  width: 100%;
+  padding: var(--space-8) var(--space-12);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+textarea.form-control {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+}
+
+select.form-control {
+  padding: var(--space-8) var(--space-12);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: var(--select-caret-light);
+  background-repeat: no-repeat;
+  background-position: right var(--space-12) center;
+  background-size: 16px;
+  padding-right: var(--space-32);
+}
+
+/* Add a dark mode specific caret */
+@media (prefers-color-scheme: dark) {
+  select.form-control {
+    background-image: var(--select-caret-dark);
+  }
+}
+
+/* Also handle data-color-scheme */
+[data-color-scheme="dark"] select.form-control {
+  background-image: var(--select-caret-dark);
+}
+
+[data-color-scheme="light"] select.form-control {
+  background-image: var(--select-caret-light);
+}
+
+.form-control:focus {
+  border-color: var(--color-primary);
+  outline: var(--focus-outline);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-8);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
+
+.form-group {
+  margin-bottom: var(--space-16);
+}
+
+/* Card component */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow var(--duration-normal) var(--ease-standard);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card__body {
+  padding: var(--space-16);
+}
+
+.card__header,
+.card__footer {
+  padding: var(--space-16);
+  border-bottom: 1px solid var(--color-card-border-inner);
+}
+
+/* Status indicators - simplified with CSS variables */
+.status {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-6) var(--space-12);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
+
+.status--success {
+  background-color: rgba(
+    var(--color-success-rgb, 33, 128, 141),
+    var(--status-bg-opacity)
+  );
+  color: var(--color-success);
+  border: 1px solid
+    rgba(var(--color-success-rgb, 33, 128, 141), var(--status-border-opacity));
+}
+
+.status--error {
+  background-color: rgba(
+    var(--color-error-rgb, 192, 21, 47),
+    var(--status-bg-opacity)
+  );
+  color: var(--color-error);
+  border: 1px solid
+    rgba(var(--color-error-rgb, 192, 21, 47), var(--status-border-opacity));
+}
+
+.status--warning {
+  background-color: rgba(
+    var(--color-warning-rgb, 168, 75, 47),
+    var(--status-bg-opacity)
+  );
+  color: var(--color-warning);
+  border: 1px solid
+    rgba(var(--color-warning-rgb, 168, 75, 47), var(--status-border-opacity));
+}
+
+.status--info {
+  background-color: rgba(
+    var(--color-info-rgb, 98, 108, 113),
+    var(--status-bg-opacity)
+  );
+  color: var(--color-info);
+  border: 1px solid
+    rgba(var(--color-info-rgb, 98, 108, 113), var(--status-border-opacity));
+}
+
+/* Container layout */
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--space-16);
+  padding-left: var(--space-16);
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: var(--container-sm);
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: var(--container-md);
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: var(--container-lg);
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    max-width: var(--container-xl);
+  }
+}
+
+/* Utility classes */
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-4 {
+  gap: var(--space-4);
+}
+.gap-8 {
+  gap: var(--space-8);
+}
+.gap-16 {
+  gap: var(--space-16);
+}
+
+.m-0 {
+  margin: 0;
+}
+.mt-8 {
+  margin-top: var(--space-8);
+}
+.mb-8 {
+  margin-bottom: var(--space-8);
+}
+.mx-8 {
+  margin-left: var(--space-8);
+  margin-right: var(--space-8);
+}
+.my-8 {
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.p-0 {
+  padding: 0;
+}
+.py-8 {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
+}
+.px-8 {
+  padding-left: var(--space-8);
+  padding-right: var(--space-8);
+}
+.py-16 {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-16);
+}
+.px-16 {
+  padding-left: var(--space-16);
+  padding-right: var(--space-16);
+}
+
+.block {
+  display: block;
+}
+.hidden {
+  display: none;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
+
+/* Dark mode specifics */
+[data-color-scheme="dark"] .btn--outline {
+  border: 1px solid var(--color-border-secondary);
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2')
+    format('woff2');
+}
+
+        /* Custom App Styles */
+        .app-header {
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-16) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .app-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .app-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-xl);
+            color: var(--color-primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-24);
+        }
+        
+        .nav-link {
+            color: var(--color-text);
+            cursor: pointer;
+            padding: var(--space-8) var(--space-12);
+            border-radius: var(--radius-base);
+            transition: background-color var(--duration-fast);
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+        }
+        
+        .main-content {
+            min-height: calc(100vh - 80px);
+            padding: var(--space-24) 0;
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: var(--space-32) 0;
+        }
+        
+        .hero-title {
+            font-size: var(--font-size-4xl);
+            margin-bottom: var(--space-16);
+        }
+        
+        .hero-subtitle {
+            font-size: var(--font-size-xl);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-32);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-24);
+            margin-top: var(--space-32);
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: var(--space-24);
+            background: var(--color-bg-1);
+            border-radius: var(--radius-lg);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-16);
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-16);
+            margin-bottom: var(--space-24);
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .profile-info h2 {
+            margin-bottom: var(--space-8);
+        }
+        
+        .profile-meta {
+            color: var(--color-text-secondary);
+            display: flex;
+            gap: var(--space-16);
+            flex-wrap: wrap;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-24);
+        }
+        
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-12);
+            background: var(--color-bg-2);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--space-8);
+        }
+        
+        .skill-level {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .match-card {
+            border-left: 4px solid var(--color-primary);
+        }
+        
+        .match-score {
+            background: var(--color-primary);
+            color: var(--color-btn-primary-text);
+            padding: var(--space-4) var(--space-8);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .match-reasons {
+            margin-top: var(--space-12);
+        }
+        
+        .match-reasons ul {
+            margin: 0;
+            padding-left: var(--space-20);
+            color: var(--color-text-secondary);
+        }
+        
+        .match-reasons li {
+            font-size: var(--font-size-sm);
+            margin-bottom: var(--space-4);
+        }
+        
+        .chat-container {
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+        }
+        
+        .chat-header {
+            padding: var(--space-16);
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-bg-3);
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--space-16);
+        }
+        
+        .message {
+            margin-bottom: var(--space-12);
+            display: flex;
+            gap: var(--space-8);
+        }
+        
+        .message.own {
+            justify-content: flex-end;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: var(--space-8) var(--space-12);
+            border-radius: var(--radius-base);
+            background: var(--color-bg-1);
+        }
+        
+        .message.own .message-content {
+            background: var(--color-primary);
+            color: var(--color-btn-primary-text);
+        }
+        
+        .message-time {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-4);
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: var(--space-16);
+            border-top: 1px solid var(--color-border);
+            gap: var(--space-8);
+        }
+        
+        .chat-input input {
+            flex: 1;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-24);
+        }
+        
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-16);
+            margin-bottom: var(--space-24);
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: var(--space-16);
+            background: var(--color-bg-4);
+            border-radius: var(--radius-lg);
+        }
+        
+        .stat-number {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+        }
+        
+        .stat-label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+        
+        .notification-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-12);
+            padding: var(--space-12);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--space-8);
+        }
+        
+        .notification-item:hover {
+            background: var(--color-bg-5);
+        }
+        
+        .notification-item.unread {
+            background: var(--color-bg-6);
+            border-left: 3px solid var(--color-primary);
+        }
+        
+        .notification-icon {
+            font-size: var(--font-size-lg);
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-4);
+        }
+        
+        .notification-message {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+        
+        .notification-time {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-secondary);
+        }
+        
+        .session-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-16);
+            background: var(--color-bg-7);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--space-12);
+        }
+        
+        .session-info {
+            flex: 1;
+        }
+        
+        .session-skill {
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-4);
+        }
+        
+        .session-time {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: var(--space-32) auto;
+            padding: var(--space-32);
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: var(--space-24);
+        }
+        
+        .form-switch {
+            text-align: center;
+            margin-top: var(--space-16);
+            color: var(--color-text-secondary);
+        }
+        
+        .form-switch a {
+            color: var(--color-primary);
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        .tab-container {
+            margin-bottom: var(--space-24);
+        }
+        
+        .tab-nav {
+            display: flex;
+            gap: var(--space-4);
+            margin-bottom: var(--space-16);
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .tab-button {
+            padding: var(--space-12) var(--space-16);
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            font-size: var(--font-size-base);
+            transition: all var(--duration-fast);
+        }
+        
+        .tab-button.active {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- App Header -->
+    <header class="app-header">
+        <div class="container">
+            <nav class="app-nav">
+                <div class="app-logo">
+                    <span>🎯</span>
+                    <span>SkillSync</span>
+                </div>
+                <div class="nav-links">
+                    <span class="nav-link active" onclick="showPage('home')">Home</span>
+                    <span class="nav-link" onclick="showPage('dashboard')">Dashboard</span>
+                    <span class="nav-link" onclick="showPage('matches')">Matches</span>
+                    <span class="nav-link" onclick="showPage('messages')">Messages</span>
+                    <span class="nav-link" onclick="showPage('profile')">Profile</span>
+                </div>
+                <div>
+                    <span id="loginBtn" class="btn btn--outline" onclick="showPage('login')">Login</span>
+                    <span id="logoutBtn" class="btn btn--secondary hidden" onclick="logout()">Logout</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <div id="home" class="page container">
+            <section class="hero-section">
+                <h1 class="hero-title">AI-Powered Skill Exchange Platform</h1>
+                <p class="hero-subtitle">
+                    Connect with peers to teach &amp; learn skills through our intelligent matching system. 
+                    Share your expertise while gaining new knowledge from our global community.
+                </p>
+                <button class="btn btn--primary btn--lg" onclick="showPage('login')">
+                    Get Started Today
+                </button>
+            </section>
+            
+            <section class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Matching</h3>
+                    <p>Our advanced algorithm finds the perfect learning partners based on skills, experience, and preferences.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Real-time Chat</h3>
+                    <p>Connect instantly with your matches through our integrated messaging system.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Progress Tracking</h3>
+                    <p>Monitor your learning journey and see how your skills develop over time.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Login Page -->
+        <div id="login" class="page container hidden">
+            <form class="login-form" onsubmit="handleLogin(event)">
+                <h2 class="form-title">Welcome to SkillSync</h2>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" value="sarah.chen@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full-width">Sign In</button>
+                <p class="form-switch">
+                    Don't have an account? <a onclick="showRegister()">Sign up here</a>
+                </p>
+            </form>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page container hidden">
+            <h2>Welcome back, <span id="userNameDisplay">Sarah</span>!</h2>
+            
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Active Matches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Sessions Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4.9</div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Skills Teaching</div>
+                </div>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div>
+                    <h3>Recommended Matches</h3>
+                    <div id="recommendedMatches"></div>
+                </div>
+                
+                <div>
+                    <h3>Recent Notifications</h3>
+                    <div id="notificationsList"></div>
+                </div>
+            </div>
+            
+            <div style="margin-top: var(--space-32);">
+                <h3>Upcoming Sessions</h3>
+                <div id="upcomingSessions"></div>
+            </div>
+        </div>
+
+        <!-- Matches Page -->
+        <div id="matches" class="page container hidden">
+            <div class="tab-container">
+                <div class="tab-nav">
+                    <button class="tab-button active" onclick="switchTab('discover')">Discover</button>
+                    <button class="tab-button" onclick="switchTab('active')">Active Matches</button>
+                    <button class="tab-button" onclick="switchTab('requests')">Requests</button>
+                </div>
+                
+                <div id="discover" class="tab-content active">
+                    <h3>Discover New Learning Partners</h3>
+                    <div class="form-group">
+                        <label class="form-label">Filter by Skill</label>
+                        <select class="form-control" onchange="filterMatches(this.value)">
+                            <option value="">All Skills</option>
+                            <option value="Guitar Playing">Guitar Playing</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Photography">Photography</option>
+                            <option value="Digital Marketing">Digital Marketing</option>
+                        </select>
+                    </div>
+                    <div id="allMatches"></div>
+                </div>
+                
+                <div id="active" class="tab-content">
+                    <h3>Your Active Matches</h3>
+                    <div id="activeMatches"></div>
+                </div>
+                
+                <div id="requests" class="tab-content">
+                    <h3>Pending Requests</h3>
+                    <div id="pendingRequests"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Page -->
+        <div id="messages" class="page container hidden">
+            <h2>Messages</h2>
+            <div class="dashboard-grid">
+                <div>
+                    <h3>Conversations</h3>
+                    <div id="conversationsList"></div>
+                </div>
+                
+                <div>
+                    <div id="chatWindow">
+                        <p style="text-align: center; color: var(--color-text-secondary); padding: var(--space-32);">
+                            Select a conversation to start messaging
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profile" class="page container hidden">
+            <div id="profileContent"></div>
+        </div>
+    </main>
+
+    <script>
+        // Application State
+        let currentUser = null;
+        let currentPage = 'home';
+        let currentChat = null;
+        
+        // Sample Data (using provided JSON)
+        const users = [
+            {
+                id: 1,
+                name: "Sarah Chen",
+                email: "sarah.chen@email.com",
+                avatar: "https://images.unsplash.com/photo-1494790108755-2616b2c0e3b8?w=150",
+                skills_to_teach: [
+                    { name: "Python Programming", level: "Expert", experience_years: 5, rating: 4.9 },
+                    { name: "Data Science", level: "Advanced", experience_years: 4, rating: 4.8 }
+                ],
+                skills_to_learn: [
+                    { name: "Guitar Playing", desired_level: "Intermediate", priority: "High" },
+                    { name: "Spanish Language", desired_level: "Conversational", priority: "Medium" }
+                ],
+                location: "San Francisco, CA",
+                availability: ["Mon 6-9 PM", "Sat 10-12 PM", "Sun 2-5 PM"],
+                learning_style: "Hands-on",
+                bio: "Senior data scientist passionate about teaching programming and learning new creative skills."
+            },
+            {
+                id: 2,
+                name: "Miguel Rodriguez",
+                email: "miguel.r@email.com",
+                avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+                skills_to_teach: [
+                    { name: "Guitar Playing", level: "Expert", experience_years: 12, rating: 4.9 },
+                    { name: "Music Theory", level: "Advanced", experience_years: 10, rating: 4.7 }
+                ],
+                skills_to_learn: [
+                    { name: "Web Development", desired_level: "Intermediate", priority: "High" },
+                    { name: "Digital Marketing", desired_level: "Beginner", priority: "Low" }
+                ],
+                location: "Austin, TX",
+                availability: ["Tue 7-9 PM", "Thu 7-9 PM", "Sat 9-11 AM"],
+                learning_style: "Visual",
+                bio: "Professional musician and guitar instructor looking to expand into tech skills."
+            },
+            {
+                id: 3,
+                name: "Emma Thompson",
+                email: "emma.t@email.com",
+                avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150",
+                skills_to_teach: [
+                    { name: "Web Development", level: "Expert", experience_years: 6, rating: 4.8 },
+                    { name: "UI/UX Design", level: "Advanced", experience_years: 5, rating: 4.9 }
+                ],
+                skills_to_learn: [
+                    { name: "Photography", desired_level: "Intermediate", priority: "Medium" },
+                    { name: "French Language", desired_level: "Conversational", priority: "High" }
+                ],
+                location: "London, UK",
+                availability: ["Mon 8-10 PM", "Wed 8-10 PM", "Sat 2-4 PM"],
+                learning_style: "Project-based",
+                bio: "Full-stack developer and designer passionate about creating beautiful user experiences."
+            },
+            {
+                id: 4,
+                name: "David Kim",
+                email: "david.kim@email.com",
+                avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150",
+                skills_to_teach: [
+                    { name: "Photography", level: "Expert", experience_years: 8, rating: 4.9 },
+                    { name: "Adobe Photoshop", level: "Advanced", experience_years: 7, rating: 4.7 }
+                ],
+                skills_to_learn: [
+                    { name: "Machine Learning", desired_level: "Intermediate", priority: "High" },
+                    { name: "Public Speaking", desired_level: "Advanced", priority: "Medium" }
+                ],
+                location: "Seoul, South Korea",
+                availability: ["Mon 9-11 PM", "Fri 9-11 PM", "Sun 1-3 PM"],
+                learning_style: "Theoretical",
+                bio: "Professional photographer interested in exploring AI and improving communication skills."
+            },
+            {
+                id: 5,
+                name: "Lisa Anderson",
+                email: "lisa.a@email.com",
+                avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150",
+                skills_to_teach: [
+                    { name: "Digital Marketing", level: "Expert", experience_years: 7, rating: 4.8 },
+                    { name: "Public Speaking", level: "Advanced", experience_years: 5, rating: 4.9 }
+                ],
+                skills_to_learn: [
+                    { name: "Python Programming", desired_level: "Beginner", priority: "High" },
+                    { name: "Data Analysis", desired_level: "Intermediate", priority: "Medium" }
+                ],
+                location: "New York, NY",
+                availability: ["Tue 6-8 PM", "Thu 6-8 PM", "Sat 11-1 PM"],
+                learning_style: "Interactive",
+                bio: "Marketing strategist eager to learn data science to enhance campaign effectiveness."
+            }
+        ];
+        
+        const matches = [
+            {
+                user1_id: 1,
+                user2_id: 2,
+                compatibility_score: 92,
+                match_reasons: [
+                    "Sarah wants to learn Guitar Playing (High priority) - Miguel teaches Guitar Playing (Expert level)",
+                    "High skill complementarity match",
+                    "Compatible learning styles and availability"
+                ],
+                status: "active",
+                created_date: "2025-10-10"
+            },
+            {
+                user1_id: 2,
+                user2_id: 3,
+                compatibility_score: 87,
+                match_reasons: [
+                    "Miguel wants to learn Web Development - Emma teaches Web Development (Expert level)",
+                    "Good experience level compatibility",
+                    "Overlapping availability windows"
+                ],
+                status: "pending",
+                created_date: "2025-10-12"
+            },
+            {
+                user1_id: 4,
+                user2_id: 3,
+                compatibility_score: 78,
+                match_reasons: [
+                    "David wants to learn Machine Learning - Emma has related tech skills",
+                    "Both interested in creative-technical skill combinations",
+                    "Similar learning preferences"
+                ],
+                status: "declined",
+                created_date: "2025-10-08"
+            }
+        ];
+        
+        const conversations = [
+            {
+                match_id: 1,
+                messages: [
+                    {
+                        sender_id: 1,
+                        content: "Hi Miguel! I saw we matched because I'm interested in learning guitar. I love your profile - 12 years of experience is amazing!",
+                        timestamp: "2025-10-10T14:30:00Z"
+                    },
+                    {
+                        sender_id: 2,
+                        content: "Hi Sarah! Thanks for the kind words. I'd love to help you learn guitar, and I'm really excited to learn about data science from you. When would be a good time to chat about setting up some sessions?",
+                        timestamp: "2025-10-10T15:45:00Z"
+                    },
+                    {
+                        sender_id: 1,
+                        content: "That sounds perfect! I'm free Saturday mornings usually. Should we start with a quick video call to discuss what you're hoping to learn in data science?",
+                        timestamp: "2025-10-10T16:20:00Z"
+                    }
+                ]
+            }
+        ];
+        
+        const learning_sessions = [
+            {
+                id: 1,
+                teacher_id: 2,
+                student_id: 1,
+                skill: "Guitar Playing",
+                scheduled_date: "2025-10-15T10:00:00Z",
+                duration_minutes: 60,
+                status: "scheduled",
+                session_type: "video_call"
+            },
+            {
+                id: 2,
+                teacher_id: 1,
+                student_id: 2,
+                skill: "Data Science",
+                scheduled_date: "2025-10-17T19:00:00Z",
+                duration_minutes: 90,
+                status: "scheduled",
+                session_type: "video_call"
+            }
+        ];
+        
+        const notifications = [
+            {
+                user_id: 1,
+                type: "new_match",
+                title: "New Match Found!",
+                message: "You have a 92% compatibility match with Miguel Rodriguez for guitar lessons",
+                timestamp: "2025-10-10T13:00:00Z",
+                read: true
+            },
+            {
+                user_id: 1,
+                type: "session_reminder",
+                title: "Session Tomorrow",
+                message: "Guitar lesson with Miguel scheduled for tomorrow at 10:00 AM",
+                timestamp: "2025-10-14T18:00:00Z",
+                read: false
+            },
+            {
+                user_id: 2,
+                type: "new_message",
+                title: "New Message from Sarah",
+                message: "Sarah sent you a message about your upcoming data science session",
+                timestamp: "2025-10-10T16:20:00Z",
+                read: false
+            }
+        ];
+        
+        // Core Functions
+        function showPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show selected page
+            document.getElementById(pageName).classList.remove('hidden');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+            currentPage = pageName;
+            
+            // Load page-specific content
+            if (pageName === 'dashboard' && currentUser) {
+                loadDashboard();
+            } else if (pageName === 'matches' && currentUser) {
+                loadMatches();
+            } else if (pageName === 'messages' && currentUser) {
+                loadMessages();
+            } else if (pageName === 'profile' && currentUser) {
+                loadProfile();
+            }
+        }
+        
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            // Simulate login (in real app, this would validate credentials)
+            const email = event.target.querySelector('input[type="email"]').value;
+            currentUser = users.find(u => u.email === email) || users[0];
+            
+            // Update UI
+            document.getElementById('loginBtn').classList.add('hidden');
+            document.getElementById('logoutBtn').classList.remove('hidden');
+            document.getElementById('userNameDisplay').textContent = currentUser.name;
+            
+            // Redirect to dashboard
+            showPage('dashboard');
+        }
+        
+        function logout() {
+            currentUser = null;
+            document.getElementById('loginBtn').classList.remove('hidden');
+            document.getElementById('logoutBtn').classList.add('hidden');
+            showPage('home');
+        }
+        
+        function loadDashboard() {
+            if (!currentUser) return;
+            
+            // Load recommended matches
+            const recommendedContainer = document.getElementById('recommendedMatches');
+            const userMatches = generateMatches(currentUser.id);
+            
+            recommendedContainer.innerHTML = userMatches.map(match => {
+                const otherUser = users.find(u => u.id === (match.user1_id === currentUser.id ? match.user2_id : match.user1_id));
+                return `
+                    <div class="card match-card" style="margin-bottom: var(--space-16);">
+                        <div class="card__body">
+                            <div class="flex justify-between items-center" style="margin-bottom: var(--space-12);">
+                                <div class="flex items-center gap-8">
+                                    <img src="${otherUser.avatar}" alt="${otherUser.name}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                    <div>
+                                        <h4 style="margin-bottom: var(--space-4);">${otherUser.name}</h4>
+                                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin: 0;">${otherUser.location}</p>
+                                    </div>
+                                </div>
+                                <div class="match-score">${match.compatibility_score}%</div>
+                            </div>
+                            <div class="match-reasons">
+                                <ul>
+                                    ${match.match_reasons.map(reason => `<li>${reason}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div style="margin-top: var(--space-16);">
+                                <button class="btn btn--primary btn--sm" onclick="sendMatchRequest(${otherUser.id})">
+                                    Send Match Request
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Load notifications
+            const notificationsContainer = document.getElementById('notificationsList');
+            const userNotifications = notifications.filter(n => n.user_id === currentUser.id);
+            
+            notificationsContainer.innerHTML = userNotifications.map(notification => `
+                <div class="notification-item ${!notification.read ? 'unread' : ''}">
+                    <div class="notification-icon">
+                        ${getNotificationIcon(notification.type)}
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">${notification.title}</div>
+                        <div class="notification-message">${notification.message}</div>
+                        <div class="notification-time">${formatTime(notification.timestamp)}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Load upcoming sessions
+            const sessionsContainer = document.getElementById('upcomingSessions');
+            const userSessions = learning_sessions.filter(s => 
+                s.teacher_id === currentUser.id || s.student_id === currentUser.id
+            );
+            
+            sessionsContainer.innerHTML = userSessions.map(session => {
+                const isTeacher = session.teacher_id === currentUser.id;
+                const otherUserId = isTeacher ? session.student_id : session.teacher_id;
+                const otherUser = users.find(u => u.id === otherUserId);
+                
+                return `
+                    <div class="session-card">
+                        <div class="session-info">
+                            <div class="session-skill">${session.skill} - ${isTeacher ? 'Teaching' : 'Learning'}</div>
+                            <div class="session-time">
+                                With ${otherUser.name} • ${formatSessionTime(session.scheduled_date)}
+                            </div>
+                        </div>
+                        <div>
+                            <span class="status status--info">${session.status}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function loadMatches() {
+            if (!currentUser) return;
+            
+            // Load all potential matches
+            const allMatchesContainer = document.getElementById('allMatches');
+            const potentialMatches = generateAllPotentialMatches();
+            
+            allMatchesContainer.innerHTML = potentialMatches.map(match => {
+                const otherUser = users.find(u => u.id === match.userId);
+                return createMatchCard(otherUser, match);
+            }).join('');
+            
+            // Load active matches
+            const activeMatchesContainer = document.getElementById('activeMatches');
+            const activeMatches = matches.filter(m => 
+                (m.user1_id === currentUser.id || m.user2_id === currentUser.id) && m.status === 'active'
+            );
+            
+            activeMatchesContainer.innerHTML = activeMatches.map(match => {
+                const otherUser = users.find(u => u.id === (match.user1_id === currentUser.id ? match.user2_id : match.user1_id));
+                return `
+                    <div class="card" style="margin-bottom: var(--space-16);">
+                        <div class="card__body">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center gap-8">
+                                    <img src="${otherUser.avatar}" alt="${otherUser.name}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <div>
+                                        <h4>${otherUser.name}</h4>
+                                        <p style="color: var(--color-text-secondary); margin: 0;">${otherUser.location}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn--primary btn--sm" onclick="openChat(${match.user1_id === currentUser.id ? match.user2_id : match.user1_id})">
+                                        Message
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Load pending requests
+            const pendingContainer = document.getElementById('pendingRequests');
+            const pendingMatches = matches.filter(m => 
+                (m.user1_id === currentUser.id || m.user2_id === currentUser.id) && m.status === 'pending'
+            );
+            
+            pendingContainer.innerHTML = pendingMatches.map(match => {
+                const otherUser = users.find(u => u.id === (match.user1_id === currentUser.id ? match.user2_id : match.user1_id));
+                return `
+                    <div class="card" style="margin-bottom: var(--space-16);">
+                        <div class="card__body">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center gap-8">
+                                    <img src="${otherUser.avatar}" alt="${otherUser.name}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <div>
+                                        <h4>${otherUser.name}</h4>
+                                        <p style="color: var(--color-text-secondary); margin: 0;">Compatibility: ${match.compatibility_score}%</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-8">
+                                    <button class="btn btn--primary btn--sm" onclick="acceptMatch(${match.user1_id}, ${match.user2_id})">
+                                        Accept
+                                    </button>
+                                    <button class="btn btn--outline btn--sm" onclick="declineMatch(${match.user1_id}, ${match.user2_id})">
+                                        Decline
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function loadMessages() {
+            if (!currentUser) return;
+            
+            const conversationsContainer = document.getElementById('conversationsList');
+            const userMatches = matches.filter(m => 
+                (m.user1_id === currentUser.id || m.user2_id === currentUser.id) && m.status === 'active'
+            );
+            
+            conversationsContainer.innerHTML = userMatches.map(match => {
+                const otherUser = users.find(u => u.id === (match.user1_id === currentUser.id ? match.user2_id : match.user1_id));
+                const conversation = conversations.find(c => c.match_id === getMatchId(match.user1_id, match.user2_id));
+                const lastMessage = conversation ? conversation.messages[conversation.messages.length - 1] : null;
+                
+                return `
+                    <div class="card" style="margin-bottom: var(--space-12); cursor: pointer;" onclick="openChat(${otherUser.id})">
+                        <div class="card__body">
+                            <div class="flex items-center gap-12">
+                                <img src="${otherUser.avatar}" alt="${otherUser.name}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                <div style="flex: 1;">
+                                    <h4 style="margin-bottom: var(--space-4);">${otherUser.name}</h4>
+                                    <p style="color: var(--color-text-secondary); margin: 0; font-size: var(--font-size-sm);">
+                                        ${lastMessage ? lastMessage.content.substring(0, 50) + '...' : 'No messages yet'}
+                                    </p>
+                                </div>
+                                ${lastMessage ? `<div style="color: var(--color-text-secondary); font-size: var(--font-size-xs);">${formatTime(lastMessage.timestamp)}</div>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function loadProfile() {
+            if (!currentUser) return;
+            
+            const profileContainer = document.getElementById('profileContent');
+            
+            profileContainer.innerHTML = `
+                <div class="profile-header">
+                    <img src="${currentUser.avatar}" alt="${currentUser.name}" class="profile-avatar">
+                    <div class="profile-info">
+                        <h2>${currentUser.name}</h2>
+                        <div class="profile-meta">
+                            <span>📍 ${currentUser.location}</span>
+                            <span>🎯 ${currentUser.learning_style} learner</span>
+                            <span>⭐ 4.9 rating</span>
+                        </div>
+                        <p style="margin-top: var(--space-12);">${currentUser.bio}</p>
+                    </div>
+                </div>
+                
+                <div class="skills-grid">
+                    <div>
+                        <h3>Skills I Teach</h3>
+                        ${currentUser.skills_to_teach.map(skill => `
+                            <div class="skill-item">
+                                <div>
+                                    <div style="font-weight: var(--font-weight-medium);">${skill.name}</div>
+                                    <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                                        ${skill.experience_years} years • ⭐ ${skill.rating}
+                                    </div>
+                                </div>
+                                <div class="skill-level">${skill.level}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div>
+                        <h3>Skills I Want to Learn</h3>
+                        ${currentUser.skills_to_learn.map(skill => `
+                            <div class="skill-item">
+                                <div>
+                                    <div style="font-weight: var(--font-weight-medium);">${skill.name}</div>
+                                    <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                                        Target: ${skill.desired_level}
+                                    </div>
+                                </div>
+                                <div class="skill-level">${skill.priority}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div style="margin-top: var(--space-32);">
+                    <h3>Availability</h3>
+                    <div style="display: flex; gap: var(--space-12); flex-wrap: wrap;">
+                        ${currentUser.availability.map(time => `
+                            <span class="status status--info">${time}</span>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Helper Functions
+        function generateMatches(userId) {
+            return matches.filter(m => m.user1_id === userId || m.user2_id === userId);
+        }
+        
+        function generateAllPotentialMatches() {
+            if (!currentUser) return [];
+            
+            return users.filter(u => u.id !== currentUser.id).map(user => {
+                const compatibility = calculateCompatibility(currentUser, user);
+                return {
+                    userId: user.id,
+                    compatibility: compatibility.score,
+                    reasons: compatibility.reasons
+                };
+            }).sort((a, b) => b.compatibility - a.compatibility);
+        }
+        
+        function calculateCompatibility(user1, user2) {
+            let score = 0;
+            let reasons = [];
+            
+            // Skill complementarity (40% weight)
+            const teachingSkills1 = user1.skills_to_teach.map(s => s.name);
+            const learningSkills1 = user1.skills_to_learn.map(s => s.name);
+            const teachingSkills2 = user2.skills_to_teach.map(s => s.name);
+            const learningSkills2 = user2.skills_to_learn.map(s => s.name);
+            
+            const skillMatch1 = teachingSkills1.find(skill => learningSkills2.includes(skill));
+            const skillMatch2 = teachingSkills2.find(skill => learningSkills1.includes(skill));
+            
+            if (skillMatch1 && skillMatch2) {
+                score += 40;
+                reasons.push(`Perfect skill exchange: ${skillMatch1} ↔ ${skillMatch2}`);
+            } else if (skillMatch1 || skillMatch2) {
+                score += 25;
+                reasons.push(`One-way skill match: ${skillMatch1 || skillMatch2}`);
+            }
+            
+            // Learning style compatibility (20% weight)
+            const styleCompatibility = {
+                'Hands-on': ['Visual', 'Project-based'],
+                'Visual': ['Hands-on', 'Interactive'],
+                'Project-based': ['Hands-on', 'Theoretical'],
+                'Interactive': ['Visual', 'Hands-on'],
+                'Theoretical': ['Project-based']
+            };
+            
+            if (user1.learning_style === user2.learning_style || 
+                styleCompatibility[user1.learning_style]?.includes(user2.learning_style)) {
+                score += 20;
+                reasons.push('Compatible learning styles');
+            }
+            
+            // Location (10% weight)
+            if (user1.location.split(',')[1] === user2.location.split(',')[1]) {
+                score += 10;
+                reasons.push('Same region/timezone');
+            }
+            
+            // Add some randomness for variety
+            score += Math.floor(Math.random() * 20);
+            
+            return { score: Math.min(score, 99), reasons };
+        }
+        
+        function createMatchCard(otherUser, match) {
+            return `
+                <div class="card match-card" style="margin-bottom: var(--space-16);">
+                    <div class="card__body">
+                        <div class="flex justify-between items-center" style="margin-bottom: var(--space-12);">
+                            <div class="flex items-center gap-12">
+                                <img src="${otherUser.avatar}" alt="${otherUser.name}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                                <div>
+                                    <h4 style="margin-bottom: var(--space-4);">${otherUser.name}</h4>
+                                    <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin: 0;">
+                                        ${otherUser.location} • ${otherUser.learning_style} learner
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="match-score">${match.compatibility}%</div>
+                        </div>
+                        
+                        <div style="margin-bottom: var(--space-12);">
+                            <p style="font-size: var(--font-size-sm); margin: 0;">${otherUser.bio}</p>
+                        </div>
+                        
+                        <div class="match-reasons">
+                            <strong>Why you match:</strong>
+                            <ul>
+                                ${match.reasons.map(reason => `<li>${reason}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="flex justify-between items-center" style="margin-top: var(--space-16);">
+                            <div class="flex gap-8">
+                                <span class="status status--success">Teaches: ${otherUser.skills_to_teach[0].name}</span>
+                                <span class="status status--info">Wants: ${otherUser.skills_to_learn[0].name}</span>
+                            </div>
+                            <button class="btn btn--primary btn--sm" onclick="sendMatchRequest(${otherUser.id})">
+                                Connect
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function openChat(userId) {
+            currentChat = userId;
+            showPage('messages');
+            
+            const otherUser = users.find(u => u.id === userId);
+            const conversation = conversations.find(c => c.match_id === 1); // Simplified for demo
+            
+            document.getElementById('chatWindow').innerHTML = `
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="flex items-center gap-12">
+                            <img src="${otherUser.avatar}" alt="${otherUser.name}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                            <h4>${otherUser.name}</h4>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        ${conversation ? conversation.messages.map(msg => {
+                            const isOwn = msg.sender_id === currentUser.id;
+                            return `
+                                <div class="message ${isOwn ? 'own' : ''}">
+                                    <div class="message-content">
+                                        ${msg.content}
+                                        <div class="message-time">${formatTime(msg.timestamp)}</div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('') : ''}
+                    </div>
+                    
+                    <div class="chat-input">
+                        <input type="text" class="form-control" placeholder="Type a message..." id="messageInput">
+                        <button class="btn btn--primary" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message && currentChat) {
+                const messagesContainer = document.getElementById('chatMessages');
+                messagesContainer.innerHTML += `
+                    <div class="message own">
+                        <div class="message-content">
+                            ${message}
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                `;
+                
+                input.value = '';
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        }
+        
+        function sendMatchRequest(userId) {
+            alert(`Match request sent to ${users.find(u => u.id === userId).name}!`);
+        }
+        
+        function acceptMatch(user1Id, user2Id) {
+            const match = matches.find(m => 
+                (m.user1_id === user1Id && m.user2_id === user2Id) || 
+                (m.user1_id === user2Id && m.user2_id === user1Id)
+            );
+            
+            if (match) {
+                match.status = 'active';
+                loadMatches();
+                alert('Match accepted! You can now start messaging.');
+            }
+        }
+        
+        function declineMatch(user1Id, user2Id) {
+            const match = matches.find(m => 
+                (m.user1_id === user1Id && m.user2_id === user2Id) || 
+                (m.user1_id === user2Id && m.user2_id === user1Id)
+            );
+            
+            if (match) {
+                match.status = 'declined';
+                loadMatches();
+                alert('Match declined.');
+            }
+        }
+        
+        function filterMatches(skill) {
+            // Implementation for filtering matches by skill
+            console.log('Filtering by skill:', skill);
+        }
+        
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+        
+        function getNotificationIcon(type) {
+            const icons = {
+                'new_match': '🎯',
+                'session_reminder': '⏰',
+                'new_message': '💬',
+                'rating_request': '⭐'
+            };
+            return icons[type] || '📢';
+        }
+        
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+        
+        function formatSessionTime(timestamp) {
+            const date = new Date(timestamp);
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            if (date.toDateString() === today.toDateString()) {
+                return 'Today at ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            } else if (date.toDateString() === tomorrow.toDateString()) {
+                return 'Tomorrow at ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            } else {
+                return date.toLocaleDateString() + ' at ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            }
+        }
+        
+        function getMatchId(user1Id, user2Id) {
+            return Math.min(user1Id, user2Id) + '-' + Math.max(user1Id, user2Id);
+        }
+        
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up event listeners
+            document.getElementById('messageInput')?.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
